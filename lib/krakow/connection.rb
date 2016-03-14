@@ -293,7 +293,7 @@ module Krakow
       unless(@identify_defaults)
         @identify_defaults = {
           :short_id => Socket.gethostname,
-          :long_id => Socket.gethostbyname(Socket.gethostname).flatten.compact.first,
+          :long_id => Socket.gethostbyaddr([127,0,0,1].pack("CCCC")).flatten.compact.first,
           :user_agent => "krakow/#{Krakow::VERSION}",
           :feature_negotiation => true
         }
