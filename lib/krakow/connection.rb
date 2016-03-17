@@ -292,7 +292,8 @@ module Krakow
     def identify_defaults
       unless(@identify_defaults)
         @identify_defaults = {
-          :short_id => Socket.gethostname,
+          #:short_id => Socket.gethostname,
+          :short_id => Socket.ip_address_list.detect{|intf| intf.ipv4? and !intf.ipv4_loopback? and !intf.ipv4_multicast? and !intf.ipv4_private?}.ip_address,
           :long_id => Socket.gethostbyaddr([127,0,0,1].pack("CCCC")).flatten.compact.first,
           :user_agent => "krakow/#{Krakow::VERSION}",
           :feature_negotiation => true
